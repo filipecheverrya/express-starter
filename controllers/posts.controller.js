@@ -1,14 +1,21 @@
 const { getCollection } = require("../database/connect")
 
 exports.createPost = async (req, res, next) => {
+  const { id } = req.body;
   const collection = await getCollection('users');
-  const searchQuery = { email: req.body.email };
-  const user = await collection.findOne(searchQuery);
+  
+  const idQuery = { _id: id };
+  const user = await collection.findOne(idQuery);
+
+  const newPosts = [
+    ...user.posts,
+    { text: req.body.text, createdAt: new Date() }
+  ];
   
   await collection.updateOne(
-    searchQuery,
+    idQuery,
     {
-      $set: { posts: user.posts.concat(req.body.text) },
+      $set: { posts: newPosts },
       $currentDate: { lastModified: true },
     }
   );
