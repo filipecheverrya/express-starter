@@ -13,12 +13,13 @@ exports.createUser = async (data) => {
   data.password = await bcrypt.hashSync(
     data.password,
     bcrypt.genSaltSync(10),
-    null
+    null,
   );
 
   const user = await collection.insertOne({
     ...data,
     _id,
+    posts: [],
   });
 
   return user;

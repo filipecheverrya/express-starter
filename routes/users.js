@@ -9,7 +9,8 @@ const { UserValidator } = require('../validators/users.validator');
 /*
   * POST /users
 */
-router.post('/', UserValidator, async function(req, res, next) {
+
+router.post('/create', UserValidator, async function(req, res, next) {
   const errors = validationResult(req);
   
   if (!errors.isEmpty()) {
