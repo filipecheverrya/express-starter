@@ -3,12 +3,13 @@ const router = express.Router();
 
 const { postValidator } = require('../validators/post.validator');
 const { isAuthorized } = require('../middlewares/auth');
-const { createPost } = require('../controllers/posts.controller');
+const { createPost, listPosts } = require('../controllers/posts.controller');
 
 /*
   * POST /posts
 */
 
 router.post('/create', postValidator, isAuthorized, createPost);
+router.get('/list', isAuthorized, listPosts);
 
 module.exports = router;

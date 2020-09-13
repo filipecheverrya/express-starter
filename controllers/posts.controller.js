@@ -22,3 +22,11 @@ exports.createPost = async (req, res, next) => {
 
   return res.status(200).send({ message: 'post created succesfully!' });
 }
+
+exports.listPosts = async (req, res, next) => {
+  const collection = await getCollection('users');
+  const posts = await collection.find().toArray();
+  const data = posts.map(item => ({ email: item.email, posts: item.posts }));
+
+  return res.status(200).send({ data });
+}

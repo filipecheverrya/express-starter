@@ -4,7 +4,7 @@ exports.createToken = (param) => {
   return jwt.sign(
     param,
     process.env.JWT_SECRET,
-    { expiresIn: 300 }
+    { expiresIn: process.env.JWT_EXPIRATION }
   );
 }
 
